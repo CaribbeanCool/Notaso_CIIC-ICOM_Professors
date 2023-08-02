@@ -1,4 +1,4 @@
-# Notaso_CIIC_Professors
+# Notaso_CIIC-ICOM_Professors
 A Python web-scraper that 
 1. Finds all professors from the CSE Department, and
 2. Finds average of notes, and student's comments.

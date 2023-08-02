@@ -5,7 +5,10 @@ import somethn
 
 def comentarios(nombreDeProfe):
     dummy = nombreDeProfe.lower()
-    nombreDeProfe = dummy.replace(" ", "-")
+    test = dummy.replace(".", "")
+    test2 = test.replace("é", "e")
+    test3 = test2.replace("ü", "u")
+    nombreDeProfe = test3.replace(" ", "-")
     link = f"https://notaso.com/professors/{nombreDeProfe}/"
     pageToScrape = requests.get(link)
     soup = BeautifulSoup(pageToScrape.text, "html.parser")
@@ -23,6 +26,19 @@ def comentarios(nombreDeProfe):
     for i in comentarios:
         print(i)
         print("================================"*2)
+
+
+def notaDeProfesor(nombreDeProfe):
+    dummy = nombreDeProfe.lower()
+    test = dummy.replace(".", "")
+    test2 = test.replace("é", "e")
+    test3 = test2.replace("ü", "u")
+    nombreDeProfe = test3.replace(" ", "-")
+    link = f"https://notaso.com/professors/{nombreDeProfe}/"
+    pageToScrape = requests.get(link)
+    soup = BeautifulSoup(pageToScrape.text, "html.parser")
+    nota = soup.find("p", attrs={"class": "professor-percent"})
+    return nota.text
 
 
 def busquedaDeProfes(departamento):
@@ -43,15 +59,17 @@ def busquedaDeProfes(departamento):
         for i in q:
             if i == "Marko  Schütz":  # test case 1
                 i = "Marko Schütz"
-                nombresDeProfesores.add(i)
             if i == "Gretchen Y Bonilla Carabal…":  # test case 2
                 i = "Gretchen Y Bonilla Caraballo"
-                nombresDeProfesores.add(i)
+            if i == "Pedro  Rivera Vega":
+                i = "Pedro Rivera Vega"
+            if i == "Amir  Chinaei":
+                i = "Amir Chinaei"
             nombresDeProfesores.add(i)
 
     for i in nombresDeProfesores:
         profeList.update({i: num})
-        print(str(num) + ") ", i)
+        print(str(num) + ") ", i + ": " + notaDeProfesor(i))
         num += 1
 
     coments = input("Quieres ver los comentarios de los profesores? (y/n) ")

@@ -12,11 +12,10 @@ def verificacionNombreDeProfe(name):
 
 
 def comentarios(nombreDeProfe):
-    dummy = nombreDeProfe.lower()
-    test = dummy.replace(".", "")
-    test2 = test.replace("é", "e")
-    test3 = test2.replace("ü", "u")
-    nombreDeProfe = test3.replace(" ", "-")
+    somethn.clear()
+    print("===      COMENTARIOS      ===")
+    print("PROFESOR: " + nombreDeProfe + "\n")
+    nombreDeProfe = verificacionNombreDeProfe(nombreDeProfe)
     link = f"https://notaso.com/professors/{nombreDeProfe}/"
     pageToScrape = requests.get(link)
     soup = BeautifulSoup(pageToScrape.text, "html.parser")
@@ -37,16 +36,17 @@ def comentarios(nombreDeProfe):
 
 
 def notaDeProfesor(nombreDeProfe):
-    dummy = nombreDeProfe.lower()
-    test = dummy.replace(".", "")
-    test2 = test.replace("é", "e")
-    test3 = test2.replace("ü", "u")
-    nombreDeProfe = test3.replace(" ", "-")
+    nombreDeProfe = verificacionNombreDeProfe(nombreDeProfe)
     link = f"https://notaso.com/professors/{nombreDeProfe}/"
     pageToScrape = requests.get(link)
     soup = BeautifulSoup(pageToScrape.text, "html.parser")
     nota = soup.find("p", attrs={"class": "professor-percent"})
     return nota.text
+
+
+def display_professor_info(profeList):
+    for i, (professor, _) in enumerate(profeList.items(), start=1):
+        print(f"{i}) {professor}: {notaDeProfesor(professor)}")
 
 
 def busquedaDeProfes(departamento):
@@ -77,15 +77,24 @@ def busquedaDeProfes(departamento):
 
     for i in nombresDeProfesores:
         profeList.update({i: num})
-        print(str(num) + ") ", i + ": " + notaDeProfesor(i))
         num += 1
 
+    display_professor_info(profeList)
+
     coments = input("Quieres ver los comentarios de los profesores? (y/n) ")
+
+# After getting the user's choice about viewing comments
     if coments.lower() == "y":
-        index = int(input("Cual profesor? "))
-        if index > len(profeList.items()):
-            print("Ese numero excede el numero de profesores")
-            elMenu()
+        while True:
+            try:
+                index = int(input("Cual profesor? "))
+                if index <= len(profeList):
+                    break
+                else:
+                    print("Ese numero excede el numero de profesores")
+            except ValueError:
+                print("Ingresa un numero valido.")
+                continue
 
         for key, value in profeList.items():
             if index == value:
@@ -103,7 +112,7 @@ def elMenu():
     print("////////////////////////////////////////////////////////////////////////////////////// \n")
 
     try:
-        inp = input("CIIC o ICOM? ")
+        inp = input("Selecciona un departamento ('CIIC' or 'ICOM'): ")
         if inp.lower() == "ciic" or inp.upper() == "CIIC":
             busquedaDeProfes(inp)
         elif inp.lower() == "icom" or inp.upper() == "ICOM":

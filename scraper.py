@@ -10,6 +10,8 @@ def verificacionNombreDeProfe(name):
         "é", "e").replace("ü", "u").replace(" ", "-")
     return name
 
+# Function that scrapes the comments from the professor's page
+
 
 def comentarios(nombreDeProfe):
     somethn.clear()
@@ -34,6 +36,8 @@ def comentarios(nombreDeProfe):
         print(i)
         print("================================"*2)
 
+# Function that scrapes the professor's rating
+
 
 def notaDeProfesor(nombreDeProfe):
     nombreDeProfe = verificacionNombreDeProfe(nombreDeProfe)
@@ -43,10 +47,14 @@ def notaDeProfesor(nombreDeProfe):
     nota = soup.find("p", attrs={"class": "professor-percent"})
     return nota.text
 
+# Function that displays the professor's names and rating
+
 
 def display_professor_info(profeList):
     for i, (professor, _) in enumerate(profeList.items(), start=1):
         print(f"{i}) {professor}: {notaDeProfesor(professor)}")
+
+# Function that scrapes the professor's names
 
 
 def busquedaDeProfes(departamento):
@@ -101,6 +109,8 @@ def busquedaDeProfes(departamento):
                 comentarios(key)
     else:
         elMenu()
+
+# The menu function
 
 
 def elMenu():

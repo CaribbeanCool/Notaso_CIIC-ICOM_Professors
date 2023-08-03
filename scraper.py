@@ -2,6 +2,14 @@ from bs4 import BeautifulSoup
 import requests
 import somethn
 
+# Helper function to process professor names
+
+
+def verificacionNombreDeProfe(name):
+    name = name.lower().replace(".", "").replace(
+        "é", "e").replace("ü", "u").replace(" ", "-")
+    return name
+
 
 def comentarios(nombreDeProfe):
     dummy = nombreDeProfe.lower()

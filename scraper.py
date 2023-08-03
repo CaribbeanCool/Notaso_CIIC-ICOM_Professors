@@ -22,19 +22,24 @@ def comentarios(nombreDeProfe):
     pageToScrape = requests.get(link)
     soup = BeautifulSoup(pageToScrape.text, "html.parser")
     losComentarios = soup.find_all("p", attrs={"class": "break-word"})
-    comentarios = set()
+    comentarios = []
 
     for q in losComentarios:
         for i in q:
             i = str(i)
             if i.startswith("<"):
                 continue
-            comentarios.add(i)
+            comentarios.append(i)
 
-    #  printing the comments:
-    for i in comentarios:
-        print(i)
-        print("================================"*2)
+    if comentarios:
+        print("COMENTARIOS:")
+        print("------------------------------------------------")
+        for i, comment in enumerate(comentarios, start=1):
+            print(f"{i}. {comment}")
+            print("-" * 50)
+    else:
+        print("No hay comentarios para este profesor.")
+
 
 # Function that scrapes the professor's rating
 

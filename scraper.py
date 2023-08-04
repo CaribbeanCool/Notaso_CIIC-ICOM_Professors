@@ -22,7 +22,8 @@ def comentarios(nombreDeProfe):
     pageToScrape = requests.get(link)
     soup = BeautifulSoup(pageToScrape.text, "html.parser")
     losComentarios = soup.find_all("p", attrs={"class": "break-word"})
-    comentarios = []
+    # autor = soup.find_all("h4", attrs={"class": "submited-by"})
+    comentarios, autores = [], []
 
     for q in losComentarios:
         for i in q:
@@ -31,9 +32,12 @@ def comentarios(nombreDeProfe):
                 continue
             comentarios.append(i)
 
-    if comentarios:
-        print("COMENTARIOS:")
-        print("------------------------------------------------")
+    # for i in autor:
+    #     for j in i:
+    #         j = str(j)
+    #         autores.append(j)
+
+    if comentarios and autores:
         for i, comment in enumerate(comentarios, start=1):
             print(f"{i}. {comment}")
             print("-" * 50)

@@ -1,3 +1,6 @@
+"""
+A module to clear the screen.
+"""
 import os
 
 def clear():

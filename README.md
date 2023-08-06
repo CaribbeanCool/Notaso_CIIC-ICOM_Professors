@@ -1,7 +1,7 @@
 # Notaso_CIIC-ICOM_Professors
 A Python web-scraper that scrapes from the website [Notaso](https://notaso.com/universities/urpm/) and:
 1. Finds all professors from the CSE and ECE Department, and
-2. Finds average of notes, and student's comments.
+2. Finds the professor's rating, and student's comments.
 
 
 ## How to Run:

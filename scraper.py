@@ -37,7 +37,7 @@ def comentarios(nombreDeProfe):
     #         j = str(j)
     #         autores.append(j)
 
-    if comentarios and autores:
+    if comentarios:
         for i, comment in enumerate(comentarios, start=1):
             print(f"{i}. {comment}")
             print("-" * 50)

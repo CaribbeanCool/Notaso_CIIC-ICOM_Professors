@@ -1,6 +1,11 @@
 from bs4 import BeautifulSoup
 import requests
-import somethn
+import os
+
+
+def clear():
+    os.system('cls' if os.name == 'nt' else 'clear')
+    return ("   ")
 
 # Helper function to process professor names
 
@@ -14,7 +19,7 @@ def verificacionNombreDeProfe(name):
 
 
 def comentarios(nombreDeProfe):
-    somethn.clear()
+    clear()
     print("===      COMENTARIOS      ===")
     print("PROFESOR: " + nombreDeProfe + "\n")
     nombreDeProfe = verificacionNombreDeProfe(nombreDeProfe)
@@ -73,7 +78,7 @@ def display_professor_info(profeList):
 
 
 def busquedaDeProfes(departamento):
-    somethn.clear()
+    clear()
     profeList = {}
     num = 1
     if departamento.lower() == "ciic":
@@ -129,7 +134,7 @@ def busquedaDeProfes(departamento):
 
 
 def elMenu():
-    somethn.clear()
+    clear()
     print("//////////////////////////////////////////////////////////////////////////////////////")
     print("//////////////////////////////////////////////////////////////////////////////////////")
     print("\n                               !!!!!BIENVENIDO!!!!!               \n ")

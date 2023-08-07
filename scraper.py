@@ -60,8 +60,14 @@ def notaDeProfesor(nombreDeProfe):
 
 
 def display_professor_info(profeList):
+    print("No.  Profesor                    Clasificación")
+    print("----------------------------------------------")
+
     for i, (professor, _) in enumerate(profeList.items(), start=1):
-        print(f"{i}) {professor}: {notaDeProfesor(professor)}")
+        # Assuming you have a function to get the professor's grade
+        nota = notaDeProfesor(professor)
+        print(f"{i:>3}.  {professor:<30} {nota}")
+
 
 # Function that scrapes the professor's names
 

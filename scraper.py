@@ -49,6 +49,22 @@ def comentarios(nombreDeProfe):
     else:
         print("No hay comentarios para este profesor.")
 
+    # PROMPT TO RETURN TO MENU
+    print("\n")
+    while True:
+        try:
+            inp = input("Quieres regresar al menu? (y/n) ")
+            if inp.lower() == "y":
+                elMenu()
+            elif inp.lower() == "n":
+                exit()
+            else:
+                print("Ingresa una opcion valida.")
+                continue
+        except ValueError:
+            print("Ingresa una opcion valida.")
+            continue
+
 
 # Function that scrapes the professor's rating
 

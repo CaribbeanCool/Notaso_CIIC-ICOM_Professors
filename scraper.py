@@ -57,6 +57,7 @@ def comentarios(nombreDeProfe):
             if inp.lower() == "y":
                 elMenu()
             elif inp.lower() == "n":
+                clear()
                 exit()
             else:
                 print("Ingresa una opcion valida.")

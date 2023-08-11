@@ -14,4 +14,4 @@ pip install requests
 ```
 python scraper.py
 ```
-### NOTE: THIS REPOSITORY TAKES IDEAS FROM [THIS REPO](https://github.com/sotam1069/Notaso-Professor-Grade)
+### NOTE: THIS REPOSITORY TAKES IDEAS FROM [HERE](https://github.com/sotam1069/Notaso-Professor-Grade)

@@ -10,7 +10,7 @@ def clear():
 # Helper function to process professor names
 
 
-def verificacionNombreDeProfe(name):
+def verificacionNombreDeProfe(name: str) -> str:
     name = name.lower().replace(".", "").replace(
         "é", "e").replace("ü", "u").replace(" ", "-")
     return name
@@ -18,7 +18,7 @@ def verificacionNombreDeProfe(name):
 # Function that scrapes the comments from the professor's page
 
 
-def comentarios(nombreDeProfe):
+def comentarios(nombreDeProfe: str) -> None:
     clear()
     print("===      COMENTARIOS      ===")
     print("PROFESOR: " + nombreDeProfe + "\n")
@@ -70,7 +70,7 @@ def comentarios(nombreDeProfe):
 # Function that scrapes the professor's rating
 
 
-def notaDeProfesor(nombreDeProfe):
+def notaDeProfesor(nombreDeProfe: str) -> str:
     nombreDeProfe = verificacionNombreDeProfe(nombreDeProfe)
     link = f"https://notaso.com/professors/{nombreDeProfe}/"
     pageToScrape = requests.get(link)
@@ -81,7 +81,7 @@ def notaDeProfesor(nombreDeProfe):
 # Function that displays the professor's names and rating
 
 
-def display_professor_info(profeList):
+def display_professor_info(profeList: dict) -> None:
     print("No.  Profesor                    Clasificación")
     print("----------------------------------------------")
 
@@ -94,7 +94,7 @@ def display_professor_info(profeList):
 # Function that scrapes the professor's names
 
 
-def busquedaDeProfes(departamento):
+def busquedaDeProfes(departamento: str) -> None:
     clear()
     profeList = {}
     num = 1
@@ -150,7 +150,7 @@ def busquedaDeProfes(departamento):
 # The menu function
 
 
-def elMenu():
+def elMenu() -> None:
     clear()
     print("//////////////////////////////////////////////////////////////////////////////////////")
     print("//////////////////////////////////////////////////////////////////////////////////////")

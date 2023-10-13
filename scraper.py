@@ -4,21 +4,32 @@ import os
 
 
 def clear():
+    """
+    Automatically clears the terminal screen
+    """
     os.system('cls' if os.name == 'nt' else 'clear')
     return ("   ")
 
-# Helper function to process professor names
-
 
 def verificacionNombreDeProfe(name: str) -> str:
+    """
+    Function that verifies the professor's name\n
+    Parameters:
+        name (str): The name of the professor
+    Returns:
+        name (str): The name of the professor without any special characters
+    """
     name = name.lower().replace(".", "").replace(
         "é", "e").replace("ü", "u").replace(" ", "-")
     return name
 
-# Function that scrapes the comments from the professor's page
 
-
-def comentarios(nombreDeProfe: str) -> None:
+def comentarios(nombreDeProfe: str):
+    """
+    Function that scrapes the professor's comments, and displays them in the terminal screen\n
+    Parameters:
+        nombreDeProfe (str): The name of the professor
+    """
     clear()
     print("===      COMENTARIOS      ===")
     print("PROFESOR: " + nombreDeProfe + "\n")
@@ -67,10 +78,14 @@ def comentarios(nombreDeProfe: str) -> None:
             continue
 
 
-# Function that scrapes the professor's rating
-
-
 def notaDeProfesor(nombreDeProfe: str) -> str:
+    """
+    Function that scrapes the professor's rating\n
+    Parameters:
+        nombreDeProfe (str): The name of the professor
+    Returns:
+        nota.text (str): The professor's rating
+    """
     nombreDeProfe = verificacionNombreDeProfe(nombreDeProfe)
     link = f"https://notaso.com/professors/{nombreDeProfe}/"
     pageToScrape = requests.get(link)
@@ -78,10 +93,13 @@ def notaDeProfesor(nombreDeProfe: str) -> str:
     nota = soup.find("p", attrs={"class": "professor-percent"})
     return nota.text
 
-# Function that displays the professor's names and rating
-
 
 def display_professor_info(profeList):
+    """
+    Function that displays the professor's name and rating\n
+    Parameters:
+        profeList (dict): The dictionary containing the professor's name and rating
+    """
     print("Num.  Profesor                    Nota")
     print("----------------------------------------------")
 
@@ -89,11 +107,12 @@ def display_professor_info(profeList):
         nota = notaDeProfesor(professor)
         print(f"{i:>3}.  {professor:<30} {nota}")
 
-
-# Function that scrapes the professor's names
-
-
-def busquedaDeProfes(departamento: str) -> None:
+def busquedaDeProfes(departamento: str):
+    """
+    Function that scrapes the professor's name and rating, and displays them in the terminal screen\n
+    Parameters:
+        departamento (str): The department that the user chooses
+    """
     clear()
     profeList = {}
     num = 1
@@ -146,10 +165,10 @@ def busquedaDeProfes(departamento: str) -> None:
     else:
         elMenu()
 
-# The menu function
-
-
-def elMenu() -> None:
+def elMenu():
+    """
+    Function that displays the main menu
+    """
     clear()
     print("//////////////////////////////////////////////////////////////////////////////////////")
     print("//////////////////////////////////////////////////////////////////////////////////////")

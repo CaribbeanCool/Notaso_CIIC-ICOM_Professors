@@ -5,10 +5,9 @@ A Python web-scraper that scrapes from the website [Notaso](https://notaso.com/u
 
 
 ## How to Run:
-- You need BeautifulSoup4 and Requests in your laptop/PC to run this code. The command to install is below:
+- You first need to install dependencies. Open up the terminal and type:
 ```
-pip install beautifulsoup4
-pip install requests
+pip install -r requirements.txt
 ```
 - Open up terminal, locate folder destination and type:
 ```

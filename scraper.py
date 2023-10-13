@@ -27,7 +27,7 @@ def comentarios(nombreDeProfe: str) -> None:
     pageToScrape = requests.get(link)
     soup = BeautifulSoup(pageToScrape.text, "html.parser")
     losComentarios = soup.find_all("p", attrs={"class": "break-word"})
-    # autor = soup.find_all("h4", attrs={"class": "submited-by"})
+    autor = soup.find_all("h4", attrs={"class": "submited-by"})
     comentarios, autores = [], []
 
     for q in losComentarios:
@@ -37,10 +37,10 @@ def comentarios(nombreDeProfe: str) -> None:
                 continue
             comentarios.append(i)
 
-    # for i in autor:
-    #     for j in i:
-    #         j = str(j)
-    #         autores.append(j)
+    for i in autor:
+        for j in i:
+            j = str(j)
+            autores.append(j)
 
     if comentarios:
         for i, comment in enumerate(comentarios, start=1):
@@ -81,12 +81,11 @@ def notaDeProfesor(nombreDeProfe: str) -> str:
 # Function that displays the professor's names and rating
 
 
-def display_professor_info(profeList: dict) -> None:
-    print("No.  Profesor                    Clasificación")
+def display_professor_info(profeList):
+    print("Num.  Profesor                    Nota")
     print("----------------------------------------------")
 
     for i, (professor, _) in enumerate(profeList.items(), start=1):
-        # Assuming you have a function to get the professor's grade
         nota = notaDeProfesor(professor)
         print(f"{i:>3}.  {professor:<30} {nota}")
 

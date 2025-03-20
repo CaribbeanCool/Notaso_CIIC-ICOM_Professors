@@ -11,7 +11,7 @@ def clear():
     return ("   ")
 
 
-def verificacionNombreDeProfe(name: str) -> str:
+def name_verification(name: str) -> str:
     """
     Function that verifies the professor's name\n
     Parameters:
@@ -19,12 +19,16 @@ def verificacionNombreDeProfe(name: str) -> str:
     Returns:
         name (str): The name of the professor without any special characters
     """
-    name = name.lower().replace(".", "").replace(
-        "é", "e").replace("ü", "u").replace(" ", "-")
-    return name
+    return (
+        name.lower()
+        .replace(".", "")
+        .replace("é", "e")
+        .replace("ü", "u")
+        .replace(" ", "-")
+    )
 
 
-def comentarios(nombreDeProfe: str):
+def comments(nombreDeProfe: str):
     """
     Function that scrapes the professor's comments, and displays them in the terminal screen\n
     Parameters:
@@ -32,13 +36,13 @@ def comentarios(nombreDeProfe: str):
     """
     clear()
     print("===      COMENTARIOS      ===")
-    print("PROFESOR: " + nombreDeProfe + "\n")
-    nombreDeProfe = verificacionNombreDeProfe(nombreDeProfe)
+    print(f"PROFESOR: {nombreDeProfe}" + "\n")
+    nombreDeProfe = name_verification(nombreDeProfe)
     link = f"https://notaso.com/professors/{nombreDeProfe}/"
     pageToScrape = requests.get(link)
     soup = BeautifulSoup(pageToScrape.text, "html.parser")
     losComentarios = soup.find_all("p", attrs={"class": "break-word"})
-    autor = soup.find_all("h4", attrs={"class": "submited-by"})
+    losAutores = soup.find_all("h4", attrs={"class": "submited-by"})
     comentarios, autores = [], []
 
     for q in losComentarios:
@@ -48,7 +52,7 @@ def comentarios(nombreDeProfe: str):
                 continue
             comentarios.append(i)
 
-    for i in autor:
+    for i in losAutores:
         for j in i:
             j = str(j)
             autores.append(j)
@@ -66,7 +70,7 @@ def comentarios(nombreDeProfe: str):
         try:
             inp = input("Quieres regresar al menu? (y/n) ")
             if inp.lower() == "y":
-                elMenu()
+                menu()
             elif inp.lower() == "n":
                 clear()
                 exit()
@@ -78,7 +82,7 @@ def comentarios(nombreDeProfe: str):
             continue
 
 
-def notaDeProfesor(nombreDeProfe: str) -> str:
+def professor_grade(nombreDeProfe: str) -> str:
     """
     Function that scrapes the professor's rating\n
     Parameters:
@@ -86,7 +90,7 @@ def notaDeProfesor(nombreDeProfe: str) -> str:
     Returns:
         nota.text (str): The professor's rating
     """
-    nombreDeProfe = verificacionNombreDeProfe(nombreDeProfe)
+    nombreDeProfe = name_verification(nombreDeProfe)
     link = f"https://notaso.com/professors/{nombreDeProfe}/"
     pageToScrape = requests.get(link)
     soup = BeautifulSoup(pageToScrape.text, "html.parser")
@@ -104,18 +108,17 @@ def display_professor_info(profeList):
     print("----------------------------------------------")
 
     for i, (professor, _) in enumerate(profeList.items(), start=1):
-        nota = notaDeProfesor(professor)
+        nota = professor_grade(professor)
         print(f"{i:>3}.  {professor:<30} {nota}")
 
-def busquedaDeProfes(departamento: str):
+
+def professor_search(departamento: str):
     """
     Function that scrapes the professor's name and rating, and displays them in the terminal screen\n
     Parameters:
         departamento (str): The department that the user chooses
     """
     clear()
-    profeList = {}
-    num = 1
     if departamento.lower() == "ciic":
         departamento = "ciencias-de-computadora"
     else:
@@ -138,10 +141,7 @@ def busquedaDeProfes(departamento: str):
                 i = "Amir Chinaei"
             nombresDeProfesores.add(i)
 
-    for i in nombresDeProfesores:
-        profeList.update({i: num})
-        num += 1
-
+    profeList = {i: num for num, i in enumerate(nombresDeProfesores, start=1)}
     display_professor_info(profeList)
 
     coments = input("Quieres ver los comentarios de los profesores? (y/n) ")
@@ -161,11 +161,12 @@ def busquedaDeProfes(departamento: str):
 
         for key, value in profeList.items():
             if index == value:
-                comentarios(key)
+                comments(key)
     else:
-        elMenu()
+        menu()
 
-def elMenu():
+
+def menu():
     """
     Function that displays the main menu
     """
@@ -179,14 +180,15 @@ def elMenu():
     try:
         inp = input("Selecciona un departamento ('CIIC' or 'ICOM'): ")
         if inp.lower() == "ciic" or inp.upper() == "CIIC":
-            busquedaDeProfes(inp)
+            professor_search(inp)
         elif inp.lower() == "icom" or inp.upper() == "ICOM":
-            busquedaDeProfes(inp)
+            professor_search(inp)
         else:
             print("Incorrect option, please try again")
-            elMenu()
+            menu()
     except ValueError:
-        elMenu()
+        menu()
 
 
-elMenu()
+if __name__ == "__main__":
+    menu()
